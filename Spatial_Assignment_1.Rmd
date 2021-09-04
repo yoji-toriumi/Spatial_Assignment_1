@@ -28,7 +28,7 @@ pubschool <- read_sf("https://github.com/cambridgegis/cambridgegis_data/raw/main
 prischool <- read_sf("https://github.com/cambridgegis/cambridgegis_data/raw/main/Landmark/Private_Schools/LANDMARK_PrivateSchools.geojson")
 road <- read_sf("https://github.com/cambridgegis/cambridgegis_data/raw/main/Basemap/Roads/BASEMAP_Roads.geojson")
 openspace <- read_sf("https://github.com/cambridgegis/cambridgegis_data/raw/main/Recreation/Open_Space/RECREATION_OpenSpace.geojson")
-strlights <- read_sf("https://github.com/cambridgegis/cambridgegis_data/raw/main/Infra/Street_Lights/INFRA_StreetLights.geojson")
+strlights <- read_sf("https://github.com/cambridgegis/cambridgegis_data/raw/main/Infra/Street_Lights/INFRA_StreetLights.geojson")is
 ```
 
 
@@ -44,8 +44,8 @@ ggplot(building) +
 ggplot(data = openspace)+
   annotation_map_tile(zoomin = 0, progress = "none", type = "cartolight") +
   geom_sf(aes(color = OWNER, fill = OWNER))+
-  geom_sf(data = pubschool, size = 5, color = "seagreen1", alpha = 1/2) +
-  geom_sf(data = prischool, size = 5, color = "tomato", alpha = 1/2)
+  geom_sf(data = pubschool, size = 5, color = "seagreen1", alpha = 1/3) +
+  geom_sf(data = prischool, size = 5, color = "tomato", alpha = 1/3)
 ```
 
 ```{r}
