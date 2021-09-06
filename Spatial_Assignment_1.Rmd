@@ -28,7 +28,7 @@ openspace <- read_sf("https://github.com/cambridgegis/cambridgegis_data/raw/main
 strlights <- read_sf("https://github.com/cambridgegis/cambridgegis_data/raw/main/Infra/Street_Lights/INFRA_StreetLights.geojson")
 ```
 
-# Map-1
+# Map-1 - Yoji
 ```{r}
 ggplot(data = openspace)+
   annotation_map_tile(zoomin = 0, progress = "none") +
@@ -37,13 +37,27 @@ ggplot(data = openspace)+
   geom_sf(data = prischool)
 ```
 
-# Map-2
+# Map-1 - Yoji
 ```{r}
 ggplot(data = openspace)+
   annotation_map_tile(zoomin = 0, progress = "none", type = "cartolight") +
   geom_sf(aes(color = OWNER, fill = OWNER))+
   geom_sf(data = pubschool, size = 5, color = "seagreen1", alpha = 1/3) +
-  geom_sf(data = prischool, size = 5, color = "tomato", alpha = 1/3)
+  geom_sf(data = prischool, size = 5, color = "tomato", alpha = 1/3)+
+  theme_void()
+```
+
+# Map-1 - Yoji
+```{r}
+ggplot(data = openspace) +
+  annotation_map_tile(zoomin = 0, progress = "none", type = "cartolight") +
+  geom_sf(data = openspace, aes(color = OWNER, fill = OWNER)) +
+  geom_sf(data = pubschool, color = "seagreen1") +
+  geom_sf(data = pubschool, size = 40, color = "seagreen1", alpha = 1/15) +
+  geom_sf(data = prischool, color = "tomato") +
+  geom_sf(data = prischool, size = 40, color = "tomato", alpha = 1/15)+
+  theme_void() +
+  labs(caption = "Map tiles by OpenStreetMap")
 ```
 
 # Map-3 Madeleine Editing
@@ -57,9 +71,31 @@ ggplot(data = openspace)+
   scale_color_manual(values = c("slateblue3", "tomato3"), labels = c("Public Schools", "Private Schools"), name = " ")
 ```
 
-# Map-4
+# Map-4 Le Yang Editing
 ```{r}
-
+ggplot(openspace)+
+  annotation_map_tile(zoomin = 0, progress = "none", type = "cartolight")+
+  geom_sf(fill = "darkolivegreen3", alpha = 0.75, aes(color = "OPENSPACE"))+
+  geom_sf(data = prischool, shape = 17, size = 2, aes(color = "Private School"))+
+  geom_sf(data = pubschool, shape = 15, size = 2, aes(color = "Public School"))+
+  scale_color_manual(values = c ("NA","blue", "firebrick1"), name = "")
+  
+```
+```{r}
+ggplot(openspace)+
+  annotation_map_tile(zoomin = 0, progress = "none", type = "cartodark")+
+  geom_sf(fill = "lightpink", alpha = 0.25, aes(color = "OPENSPACE"))+
+  geom_sf(data = prischool, size = 2, aes(color = "Private School"))+
+  geom_sf(data = pubschool, size = 2, aes(color = "Public School"))+
+  scale_color_manual(values = c ("NA","gray100", "gray55"), name = "")
+```
+```{r}
+ggplot(openspace)+
+  geom_sf(fill = "black", alpha = 0.25, aes(color = "OPENSPACE"))+
+  geom_sf(data = prischool, shape = 3, size = 3, aes(color = "Private School"))+
+  geom_sf(data = pubschool, shape = 4, size = 3, aes(color = "Public School"))+
+  scale_color_manual(values = c ("NA","blue", "firebrick1"), name = "")+
+  theme_void()
 ```
 
 # Map-5
