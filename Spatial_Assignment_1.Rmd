@@ -49,7 +49,29 @@ ggplot(data = openspace)+
 ```
 
 ```{r}
-
+ggplot(openspace)+
+  annotation_map_tile(zoomin = 0, progress = "none", type = "cartolight")+
+  geom_sf(fill = "darkolivegreen3", alpha = 0.75, aes(color = "OPENSPACE"))+
+  geom_sf(data = prischool, shape = 17, size = 2, aes(color = "Private School"))+
+  geom_sf(data = pubschool, shape = 15, size = 2, aes(color = "Public School"))+
+  scale_color_manual(values = c ("NA","blue", "firebrick1"), name = "")
+  
+```
+```{r}
+ggplot(openspace)+
+  annotation_map_tile(zoomin = 0, progress = "none", type = "cartodark")+
+  geom_sf(fill = "lightpink", alpha = 0.25, aes(color = "OPENSPACE"))+
+  geom_sf(data = prischool, size = 2, aes(color = "Private School"))+
+  geom_sf(data = pubschool, size = 2, aes(color = "Public School"))+
+  scale_color_manual(values = c ("NA","gray100", "gray55"), name = "")
+```
+```{r}
+ggplot(openspace)+
+  geom_sf(fill = "black", alpha = 0.25, aes(color = "OPENSPACE"))+
+  geom_sf(data = prischool, shape = 3, size = 3, aes(color = "Private School"))+
+  geom_sf(data = pubschool, shape = 4, size = 3, aes(color = "Public School"))+
+  scale_color_manual(values = c ("NA","blue", "firebrick1"), name = "")+
+  theme_void()
 ```
 
 
