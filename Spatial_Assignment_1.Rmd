@@ -44,23 +44,24 @@ ggplot(data = openspace)+
 ggplot()+
   annotation_map_tile(data = openspace, zoomin = 0, progress = "none", type = "cartolight") +
   geom_sf(data = openspace, aes(fill = OWNER)) +
-  geom_sf(data = pubschool, size = 5, aes(color = "C"), show.legend = "point", alpha = 1/3) +
-  geom_sf(data = prischool, size = 5, aes(color = "D"), show.legend = "point", alpha = 1/3) +
-  scale_color_manual(values = c("C" = "seagreen1", "D" = "tomato"), name = "School") +
+  geom_sf(data = pubschool, size = 3, aes(color = "Public"), alpha = 1/2) +
+  geom_sf(data = prischool, size = 3, aes(color = "Private"), alpha = 1/2) +
+  scale_color_manual(values = c("Public" = "seagreen1", "Private" = "tomato"), name = "School") +
   theme_void()
 ```
 
 # Map-1 - Yoji
 ```{r}
 ggplot(data = openspace) +
-  annotation_map_tile(zoomin = 0, progress = "none", type = "cartolight") +
-  geom_sf(data = openspace, aes(color = OWNER, fill = OWNER)) +
-  geom_sf(data = pubschool, color = "seagreen1") +
-  geom_sf(data = pubschool, size = 40, color = "seagreen1", alpha = 1/15) +
-  geom_sf(data = prischool, color = "tomato") +
-  geom_sf(data = prischool, size = 40, color = "tomato", alpha = 1/15)+
-  theme_void() +
-  labs(caption = "Map tiles by OpenStreetMap")
+    annotation_map_tile(zoomin = 0, progress = "none", type = "cartolight") +
+    geom_sf(data = openspace, aes(fill = OWNER)) +
+    geom_sf(data = pubschool, aes(color = "Public")) +
+    geom_sf(data = prischool, aes(color = "Private")) +
+    geom_sf(data = pubschool, size = 30, aes(color = "Public"), alpha = 1/15) +
+    geom_sf(data = prischool, size = 30, aes(color = "Private"), alpha = 1/15)+
+    scale_color_manual(values = c("Public" = "seagreen1", "Private" = "tomato", "Public" = "seagrean1", "Private" = "tomato"), name = "Quartermile") +
+    theme_void() +
+    labs(caption = "Map tiles by OpenStreetMap")
 ```
 
 # Map 3 Madeleine Editing
