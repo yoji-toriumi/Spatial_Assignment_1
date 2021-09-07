@@ -4,7 +4,6 @@ author: "Group 12: Le Yang, Medeleine Levin, Yoji Toriumi"
 date: "9/2/2021"
 output: html_document
 ---
-i changed
 
 # Data
 All the data used in this assignment is extracted from [City of Cambridge]( https://github.com/cambridgegis/cambridgegis_data). 
@@ -16,7 +15,7 @@ library(ggspatial)
 library(ggthemes)
 ```
 
-```{r}
+```{r,  include=FALSE}
 boudary <- read_sf("https://github.com/cambridgegis/cambridgegis_data/raw/main/Boundary/CDD_Neighborhoods/BOUNDARY_CDDNeighborhoods.geojson")
 building <- read_sf("https://github.com/cambridgegis/cambridgegis_data/raw/main/Basemap/Buildings/BASEMAP_Buildings.geojson")
 landuse <- read_sf("https://github.com/cambridgegis/cambridgegis_data/raw/main/CDD/Land_Use/CDD_LandUse.topojson")
@@ -30,7 +29,7 @@ strlights <- read_sf("https://github.com/cambridgegis/cambridgegis_data/raw/main
 ```
 
 # Map-1 - Yoji
-```{r}
+```{r,  include=FALSE}
 ggplot(data = openspace)+
   annotation_map_tile(zoomin = 0, progress = "none") +
   geom_sf() +
@@ -39,13 +38,15 @@ ggplot(data = openspace)+
 ```
 
 # Map-1 - Yoji
-```{r}
+```{r,  include=FALSE}
 ggplot(data = openspace)+
   annotation_map_tile(zoomin = 0, progress = "none", type = "cartolight") +
   geom_sf(aes(color = OWNER, fill = OWNER))+
   geom_sf(data = pubschool, size = 5, color = "seagreen1", alpha = 1/3) +
   geom_sf(data = prischool, size = 5, color = "tomato", alpha = 1/3)+
-  theme_void()
+  theme_void() +
+  labs(title = "Location of Schools and Open Spaces",
+       caption = "Source: City of Cambridge, MA")
 ```
 
 # Map-1 - Yoji
@@ -57,8 +58,7 @@ ggplot(data = openspace) +
   geom_sf(data = pubschool, size = 40, color = "seagreen1", alpha = 1/15) +
   geom_sf(data = prischool, color = "tomato") +
   geom_sf(data = prischool, size = 40, color = "tomato", alpha = 1/15)+
-  theme_void() +
-  labs(caption = "Map tiles by OpenStreetMap")
+  theme_void()
 ```
 
 # Map-3 Madeleine Editing
