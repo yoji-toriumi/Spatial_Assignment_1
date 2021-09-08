@@ -1,28 +1,11 @@
 ---
 title: "Assignment 1: Displaying Data"
-author: "Group 12: Le Yang, Madeleine Levin, Yoji Toriumi"
-date: "9/8/2021"
-output: 
-  html_document:
-    code_folding: hide
+author: "Group 12: Le Yang, Medeleine Levin, Yoji Toriumi"
+date: "9/2/2021"
+output: html_document
 ---
-<h1>About the Team</h1>
-Le Yang: Le created both the poor example and the strong example maps for the assignment. 10 points
-
-Madeleine Levin: Madeleine also created maps and formatted/organized the final document for submission. 10 points
-
-Yoji Toriumi: Like the other two teammates Yoji created maps. He also created the base and GitHub connection for the assignment and also came up with the concept, pulling the data from the City of Cambridge's website. 10 points
-
-The whole team coordinated meetings, helped troubleshoot and worked together on the project! Total points: 30 
-
-<h1>Data<h1/>
+# Data
 All the data used in this assignment is extracted from [City of Cambridge]( https://github.com/cambridgegis/cambridgegis_data). 
-
-Basemap- Various
-
-Polygons- Open Space
-
-Points- Schools
 
 ```{r, include=FALSE}
 library(sf)
@@ -32,14 +15,19 @@ library(ggthemes)
 ```
 
 ```{r}
+boudary <- read_sf("https://github.com/cambridgegis/cambridgegis_data/raw/main/Boundary/CDD_Neighborhoods/BOUNDARY_CDDNeighborhoods.geojson")
+building <- read_sf("https://github.com/cambridgegis/cambridgegis_data/raw/main/Basemap/Buildings/BASEMAP_Buildings.geojson")
+landuse <- read_sf("https://github.com/cambridgegis/cambridgegis_data/raw/main/CDD/Land_Use/CDD_LandUse.topojson")
+zoning <- read_sf("https://github.com/cambridgegis/cambridgegis_data/raw/main/CDD/Zoning_Districts/CDD_ZoningDistricts.geojson")
+tree <- read_sf("https://github.com/cambridgegis/cambridgegis_data/raw/main/Environmental/Trees/ENVIRONMENTAL_StreetTrees.geojson")
 pubschool <- read_sf("https://github.com/cambridgegis/cambridgegis_data/raw/main/Landmark/Public_Schools/LANDMARK_PublicSchools.geojson")
 prischool <- read_sf("https://github.com/cambridgegis/cambridgegis_data/raw/main/Landmark/Private_Schools/LANDMARK_PrivateSchools.geojson")
+road <- read_sf("https://github.com/cambridgegis/cambridgegis_data/raw/main/Basemap/Roads/BASEMAP_Roads.geojson")
 openspace <- read_sf("https://github.com/cambridgegis/cambridgegis_data/raw/main/Recreation/Open_Space/RECREATION_OpenSpace.geojson")
+strlights <- read_sf("https://github.com/cambridgegis/cambridgegis_data/raw/main/Infra/Street_Lights/INFRA_StreetLights.geojson")
 ```
 
-<h1>Map-1 - Cambridge Schools and Open Space<h1/>
-This map shows polygon outlines of open spaces and point data that indicates the location of schools throughout Cambridge. However, without much color distinction or a legend it is difficult to guess what is being shown here.
-
+# Map-1 - Yoji
 ```{r}
 ggplot(data = openspace)+
   annotation_map_tile(zoomin = 0, progress = "none") +
@@ -48,9 +36,51 @@ ggplot(data = openspace)+
   geom_sf(data = prischool)
 ```
 
-<h1>Map-2 - Too Dark, Not Working<h1/>
-Like prior images, this map also shows private and public schools in Cambridge and their relationship to open space. However, by using such a dark basemap with grey polygons, it can be difficult to distinguish one data point from another.
+# Map-1 - Yoji
+```{r}
+ggplot()+
+  annotation_map_tile(data = openspace, zoomin = 0, progress = "none", type = "cartolight") +
+  geom_sf(data = openspace, aes(fill = OWNER)) +
+  geom_sf(data = pubschool, size = 5, aes(color = "C"), show.legend = "point", alpha = 1/3) +
+  geom_sf(data = prischool, size = 5, aes(color = "D"), show.legend = "point", alpha = 1/3) +
+  scale_color_manual(values = c("C" = "seagreen1", "D" = "tomato"), name = "School") +
+  theme_void()
+```
 
+# Map-1 - Yoji
+```{r}
+ggplot(data = openspace) +
+  annotation_map_tile(zoomin = 0, progress = "none", type = "cartolight") +
+  geom_sf(data = openspace, aes(color = OWNER, fill = OWNER)) +
+  geom_sf(data = pubschool, color = "seagreen1") +
+  geom_sf(data = pubschool, size = 40, color = "seagreen1", alpha = 1/15) +
+  geom_sf(data = prischool, color = "tomato") +
+  geom_sf(data = prischool, size = 40, color = "tomato", alpha = 1/15)+
+  theme_void() +
+  labs(caption = "Map tiles by OpenStreetMap")
+```
+
+# Map-3 Madeleine Editing
+```{r}
+ggplot(data = openspace)+
+  annotation_map_tile(zoomin = 1, progress = "none", type = "stamenbw")+
+  geom_sf(color = NA, alpha = 1/3, aes(fill="openspace"))+
+  geom_sf(data = pubschool, size = 1, alpha = 1, aes(color="pubschool")) +
+  geom_sf(data = prischool, size = 1, alpha = 1, aes(color="prischool")) +
+  scale_fill_manual(values = "seagreen", name = " ", labels = "Open Space") +
+  scale_color_manual(values = c("slateblue3", "tomato3"), labels = c("Public Schools", "Private Schools"), name = " ")
+```
+
+# Map-4 Le Yang Editing
+```{r}
+ggplot(openspace)+
+  annotation_map_tile(zoomin = 0, progress = "none", type = "cartolight")+
+  geom_sf(fill = "darkolivegreen3", alpha = 0.75, aes(color = "OPENSPACE"))+
+  geom_sf(data = prischool, shape = 17, size = 2, aes(color = "Private School"))+
+  geom_sf(data = pubschool, shape = 15, size = 2, aes(color = "Public School"))+
+  scale_color_manual(values = c ("NA","blue", "firebrick1"), name = "")
+  
+```
 ```{r}
 ggplot(openspace)+
   annotation_map_tile(zoomin = 0, progress = "none", type = "cartodark")+
@@ -59,55 +89,17 @@ ggplot(openspace)+
   geom_sf(data = pubschool, size = 2, aes(color = "Public School"))+
   scale_color_manual(values = c ("NA","gray100", "gray55"), name = "")
 ```
-
-<h1>Map-3 - Clear Communication, Cambridge Schools and Open Space<h1/>
-
-This map uses different symbology and color to quickly inform viewers which schools in the area are public versus private. It also shows open space but does not highlight ownership. By focusing attention on school types, a viewer more quickly notices that Cambridge has many more private schools than public. While this map is simpler than the following two maps, it's communication is the clearest.
-
 ```{r}
 ggplot(openspace)+
-  annotation_map_tile(zoomin = 0, progress = "none", type = "cartolight")+
-  geom_sf(fill = "darkolivegreen3", alpha = 0.75, aes(color = "OPENSPACE"))+
-  geom_sf(data = prischool, shape = 17, size = 2, aes(color = "Private School"))+
-  geom_sf(data = pubschool, shape = 15, size = 2, aes(color = "Public School"))+
+  geom_sf(fill = "black", alpha = 0.25, aes(color = "OPENSPACE"))+
+  geom_sf(data = prischool, shape = 3, size = 3, aes(color = "Private School"))+
+  geom_sf(data = pubschool, shape = 4, size = 3, aes(color = "Public School"))+
   scale_color_manual(values = c ("NA","blue", "firebrick1"), name = "")+
   theme_void()
 ```
 
-<h1>Map-4 - A Quarter-Mile Distance to Open Space from Cambridge Schools<h1/>
-This map shows the location of private and public schools and their proximity to open spaces. It also indicates ownership over open space in Cambridge. It shows that every school has access to open space within a 5 minute walk. 
-
+# Map
 ```{r}
-ggplot(data = openspace) +
-    annotation_map_tile(zoomin = 0, progress = "none", type = "cartolight") +
-    geom_sf(data = openspace, aes(fill = OWNER)) +
-    geom_sf(data = pubschool, aes(color = "Public")) +
-    geom_sf(data = prischool, aes(color = "Private")) +
-    geom_sf(data = pubschool, size = 30, aes(color = "Public"), alpha = 1/15) +
-    geom_sf(data = prischool, size = 30, aes(color = "Private"), alpha = 1/15)+
-    scale_color_manual(values = c("Public" = "seagreen1", "Private" = "tomato", "Public" = "seagrean1", "Private" = "tomato"), name = "Quartermile") +
-    theme_void() +
-    labs(caption = "Map tiles by OpenStreetMap")
+
 ```
-
-<h1>Map-5 -  Cambridge Schools' Proximity to Open Space<h1/>
-<<<<<<< HEAD
-This map shows schools as smaller points to pinpoint their location, then adds wider circles to (very roughly) estimate a short walking 1.5 minute distance. This map does not distinguish between owners of open space in Cambridge.
-
-```{r}
-ggplot(data = openspace)+
-  annotation_map_tile(zoomin = 1, progress = "none", type = "stamenbw", alpha = .75)+
-  geom_sf(color = NA, alpha = 1/3, aes(fill="openspace"))+
-  geom_sf(data = pubschool, size = 1, alpha = 1, aes(color="pubschool")) +
-  geom_sf(data = prischool, size = 1, alpha = 1, aes(color="prischool")) +
-  geom_sf(data = pubschool, size = 10, pch = 21, alpha = .5, aes(pch="pubschool")) +
-  geom_sf(data = prischool, size = 10, pch = 21, alpha = .5, aes(pch="prischool")) +
-  scale_fill_manual(values = "chartreuse3", name = " ", labels = "Open Space") +
-  scale_color_manual(values = c("slateblue3", "tomato3"), labels = c("Public Schools", "Private Schools"), name = " ") + 
-  theme_void() 
-```
-
-
-
-
 
