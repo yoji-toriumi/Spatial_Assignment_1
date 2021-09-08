@@ -5,8 +5,8 @@ date: "9/8/2021"
 output: 
   html_document:
     code_folding: hide
-  
 ---
+
 <h1>About the Team</h1>
 Le Yang: Le created both the poor example and the strong example maps for the assignment. 10 points
 
@@ -25,7 +25,6 @@ Polygons- Open Space
 
 Points- Schools
 
-
 ```{r, include=FALSE}
 library(sf)
 library(tidyverse)
@@ -42,7 +41,7 @@ openspace <- read_sf("https://github.com/cambridgegis/cambridgegis_data/raw/main
 <h1>Map-1 - Cambridge Schools and Open Space<h1/>
 This map shows polygon outlines of open spaces and point data that indicates the location of schools throughout Cambridge. However, without much color distinction or a legend it is difficult to guess what is being shown here.
 
-```{r}
+```{r, include=FALSE}
 ggplot(data = openspace)+
   annotation_map_tile(zoomin = 0, progress = "none") +
   geom_sf() +
@@ -72,12 +71,13 @@ ggplot(openspace)+
   geom_sf(fill = "darkolivegreen3", alpha = 0.75, aes(color = "OPENSPACE"))+
   geom_sf(data = prischool, shape = 17, size = 2, aes(color = "Private School"))+
   geom_sf(data = pubschool, shape = 15, size = 2, aes(color = "Public School"))+
-  scale_color_manual(values = c ("NA","blue", "firebrick1"), name = "")
+  scale_color_manual(values = c ("NA","blue", "firebrick1"), name = "")+
+  theme_void()
   
 ```
 
-<h1>Map-4 - Quarter-Mile Distance to Open Space from Cambridge Schools<h1/>
-This map shows the location of private and public schools and their proximity to open spaces. It also indicates ownership over open space in Cambridge. It shows that every school has access to open space within a 15 minute walk. 
+<h1>Map-4 - A Quarter-Mile Distance to Open Space from Cambridge Schools<h1/>
+This map shows the location of private and public schools and their proximity to open spaces. It also indicates ownership over open space in Cambridge. It shows that every school has access to open space within a 5 minute walk. 
 
 ```{r}
 ggplot(data = openspace) +
@@ -87,13 +87,13 @@ ggplot(data = openspace) +
     geom_sf(data = prischool, aes(color = "Private")) +
     geom_sf(data = pubschool, size = 30, aes(color = "Public"), alpha = 1/15) +
     geom_sf(data = prischool, size = 30, aes(color = "Private"), alpha = 1/15)+
-    scale_color_manual(values = c("Public" = "seagreen1", "Private" = "tomato", "Public" = "seagrean1", "Private" = "tomato"), name = "Quartermile") +
+    scale_color_manual(values = c("Public" = "seagreen1", "Private" = "tomato", "Public" = "seagrean1", "Private" = "tomato"), name = "A Quartermile") +
     theme_void() +
     labs(caption = "Map tiles by OpenStreetMap")
 ```
 
 <h1>Map-5 -  Cambridge Schools' Proximity to Open Space<h1/>
-This map shows schools as smaller points to pinpoint their location, then adds wider circles to (very roughly) estimate a short walking 5 minute distance. This map does not distinguish between owners of open space in Cambridge.
+This map shows schools as smaller points to pinpoint their location, then adds wider circles to (very roughly) estimate a short walking 1.5 minute distance. This map does not distinguish between owners of open space in Cambridge.
 
 ```{r}
 ggplot(data = openspace)+
