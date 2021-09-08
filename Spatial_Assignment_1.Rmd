@@ -51,7 +51,7 @@ ggplot(data = openspace)+
 ```
 
 <h1>Map-2 - Too Dark, Not Working<h1/>
-Like prior images, this map also shows private and public schools in Cambridge and their relationship to open space. However, by only using dark colors, it can be difficult to distinguish one data point from another.
+Like prior images, this map also shows private and public schools in Cambridge and their relationship to open space. However, by using such a dark basemap with grey polygons, it can be difficult to distinguish one data point from another.
 
 ```{r}
 ggplot(openspace)+
@@ -93,7 +93,7 @@ ggplot(data = openspace) +
 ```
 
 <h1>Map-5 -  Cambridge Schools' Proximity to Open Space<h1/>
-This map shows schools as smaller points to pinpoint their location, then adds wider circles to (very roughly) estimate a short walking 5 minute distance. This map does not distinguish between owners of open space in Cambridge.
+This map shows schools as smaller points to pinpoint their location, then adds wider circles to (very roughly) estimate a short 5 minute walking distance. This map does not distinguish between owners of open space in Cambridge.
 
 ```{r}
 ggplot(data = openspace)+
