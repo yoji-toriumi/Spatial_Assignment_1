@@ -6,7 +6,6 @@ output:
   html_document:
     code_folding: hide
 ---
-
 <h1>About the Team</h1>
 Le Yang: Le created both the poor example and the strong example maps for the assignment. 10 points
 
@@ -41,7 +40,7 @@ openspace <- read_sf("https://github.com/cambridgegis/cambridgegis_data/raw/main
 <h1>Map-1 - Cambridge Schools and Open Space<h1/>
 This map shows polygon outlines of open spaces and point data that indicates the location of schools throughout Cambridge. However, without much color distinction or a legend it is difficult to guess what is being shown here.
 
-```{r, include=FALSE}
+```{r}
 ggplot(data = openspace)+
   annotation_map_tile(zoomin = 0, progress = "none") +
   geom_sf() +
@@ -50,7 +49,7 @@ ggplot(data = openspace)+
 ```
 
 <h1>Map-2 - Too Dark, Not Working<h1/>
-Like prior images, this map also shows private and public schools in Cambridge and their relationship to open space. However, by only using dark colors, it can be difficult to distinguish one data point from another.
+Like prior images, this map also shows private and public schools in Cambridge and their relationship to open space. However, by using such a dark basemap with grey polygons, it can be difficult to distinguish one data point from another.
 
 ```{r}
 ggplot(openspace)+
@@ -73,7 +72,6 @@ ggplot(openspace)+
   geom_sf(data = pubschool, shape = 15, size = 2, aes(color = "Public School"))+
   scale_color_manual(values = c ("NA","blue", "firebrick1"), name = "")+
   theme_void()
-  
 ```
 
 <h1>Map-4 - A Quarter-Mile Distance to Open Space from Cambridge Schools<h1/>
@@ -87,12 +85,13 @@ ggplot(data = openspace) +
     geom_sf(data = prischool, aes(color = "Private")) +
     geom_sf(data = pubschool, size = 30, aes(color = "Public"), alpha = 1/15) +
     geom_sf(data = prischool, size = 30, aes(color = "Private"), alpha = 1/15)+
-    scale_color_manual(values = c("Public" = "seagreen1", "Private" = "tomato", "Public" = "seagrean1", "Private" = "tomato"), name = "A Quartermile") +
+    scale_color_manual(values = c("Public" = "seagreen1", "Private" = "tomato", "Public" = "seagrean1", "Private" = "tomato"), name = "Quartermile") +
     theme_void() +
     labs(caption = "Map tiles by OpenStreetMap")
 ```
 
 <h1>Map-5 -  Cambridge Schools' Proximity to Open Space<h1/>
+<<<<<<< HEAD
 This map shows schools as smaller points to pinpoint their location, then adds wider circles to (very roughly) estimate a short walking 1.5 minute distance. This map does not distinguish between owners of open space in Cambridge.
 
 ```{r}
